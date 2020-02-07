@@ -1,0 +1,89 @@
+<form [formGroup]="Syllabus" (ngSubmit)="submit()">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Trade</label>
+            <select class="form-control" formControlName="TradeId" [(ngModel)]="TradeId" [ngClass]="{ 'is-invalid': submitted && f.TradeId.errors }"
+                (change)="FillLevelDDL();">
+                <option *ngFor="let trade of allTtrade" value="{{trade.id}}">{{trade.name}}</option>
+            </select>
+            <div *ngIf="submitted && f.TradeId.errors" class="text-danger">
+                <div *ngIf="f.TradeId.errors.required">Trade is required</div>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Level</label>
+            <select class="form-control" formControlName="LevelId" [(ngModel)]="LevelId" required>
+                <option *ngFor="let level of allLevel" value="{{level.id}}">{{level.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Language </label>
+        <div class="form-group col-md-6">
+            <label formArrayName="orders" *ngFor="let order of f.orders.controls; let i = index">
+                <input type="checkbox" [formControlName]="i"/>
+                {{ordersData[i].name}}
+            </label>
+
+            <div *ngIf="submitted && f.orders.errors" class="text-danger">
+                <div *ngIf="f.orders.errors.required">At least one order must be selected</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <p>Upload Syllabus</p>
+        <div class="custom-file md-6">
+            <input type="file" class="custom-file-input" name="SyllabusFile" formControlName="SyllabusFile" accept=".pdf,.doc" (change)="onFileSelect($event)"  [ngClass]="{ 'is-invalid': submitted && f.SyllabusFile.errors }">
+
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <p>Upload Test Plan</p>
+        <div class="custom-file md-6">
+            <input type="file" class="custom-file-input" id="customFile" name="filename">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label>Development Officer</label>
+        <input type="text" class="form-control" formControlName="DevelopmentOfficer" [ngClass]="{ 'is-invalid': submitted && f.DevelopmentOfficer.errors }">
+        <div *ngIf="submitted && f.DevelopmentOfficer.errors" class="text-danger">
+            <div *ngIf="f.DevelopmentOfficer.errors.required">Development Officer is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Manager</label>
+        <input type="text" class="form-control" formControlName="Manager" [ngClass]="{ 'is-invalid': submitted && f.Manager.errors }">
+        <div *ngIf="submitted && f.Manager.errors" class="text-danger">
+            <div *ngIf="f.Manager.errors.required">Manager is required</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Active Date</label>
+        <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="ActiveDate"
+                [(ngModel)]="ActiveDate" ngbDatepicker #d="ngbDatepicker" [ngClass]="{ 'is-invalid': submitted && f.ActiveDate.errors }">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+        </div>
+        <div *ngIf="submitted && f.ActiveDate.errors" class="text-danger">
+            <div *ngIf="f.ActiveDate.errors.required">ActiveDate Officer is required</div>
+        </div>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary" >Save</button>
+
+    <!-- [disabled]="!Syllabus.valid" -->
+</form>

@@ -1,0 +1,28 @@
+<div>
+    <h1>Angular HTML Table Example</h1>
+    <table class="table">
+       <thead>
+          <tr>
+             <th>#ID</th>
+             <th>Name</th>
+             <th>Email</th>
+             <th>Phone</th>
+             <th>Address</th>
+             <th>Action</th>
+          </tr>
+       </thead>
+       <tbody>
+          <tr *ngFor="let item of syllabusList">
+             <th>{{ item.id }}</th>
+             <td>{{ item.developmentOfficer }}</td>
+             <td>{{ item.manager }}</td>
+             <td>{{ item.levelId }}</td>
+             <td>{{ item.activeDate }}</td>
+             <td>
+                <button type="button" >Edit</button>
+                <button type="button" >Delete</button>
+             </td>
+          </tr>
+       </tbody>
+    </table>
+ </div>
